@@ -1,5 +1,6 @@
 # Use an existing docker image as base
 FROM alpine
+
 # download and install depts
 RUN apk add --update bash
 RUN apk add --update redis

@@ -115,6 +115,8 @@ Step 2/4 : RUN apk add --update redis
  ---> 82d8800b5796
 ```
 * BUT order matters, if we move the RUN to the top, the image hash is different and we need to build from scratch
+* for gaining an image name/tag we need to
+`docker build -t hagbard/redis:latest .`
 
 
 
