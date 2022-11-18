@@ -46,6 +46,24 @@ sudo systemctl enable containerd.service
 >  - all networks not used by at least one container
 >  - all dangling images
 >  - all dangling build cache
+* `docker logs <containerId>` //will retrive all emited output from a container, but it does NOT rerun or restart the container
+* some docs for us https://linuxhandbook.com/sigterm-vs-sigkill/
+* consider:
+> `docker create busyboxping ping google.com` returns `<id>`
+> `docker start <id>`
+> `docker logs <id>`
+> `docker ps` returns container id `<id>` is running
+> `docker stop <id>` will now stop sends SIGTERM message in a window of 10 seconds, after this SIGKILL is fired, since ping runs forever OR 
+> `docker kill <id>` will send SIGKILL message 
+
+
+* `docker run redis` which will start the redis server BUT will not allow us to make use of the redis-cli
+* `docker exec -it <containerId> <command>` => `-i -t` send `-input` and `-text` formatting
+* `docker exec -it a5e0ae785adf redis-cli` e.g.
+* `docker exec -it <containerId> sh` // opens a terminal inside the docker-container where `sh` is the command to gain shell
+* with this one can move around inside the container and even start `redis-cli`, if the process is not stopped from `strg-c` use `strg-d` to send end shell command and come back to hostsystem
+
+
 
 
 
