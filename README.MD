@@ -60,8 +60,10 @@ sudo systemctl enable containerd.service
 * `docker run redis` which will start the redis server BUT will not allow us to make use of the redis-cli
 * `docker exec -it <containerId> <command>` => `-i -t` send `-input` and `-text` formatting
 * `docker exec -it a5e0ae785adf redis-cli` e.g.
-* `docker exec -it <containerId> sh` // opens a terminal inside the docker-container where `sh` is the command to gain shell
+* `docker exec -it <containerId> sh` // opens a terminal inside the docker-container where `sh` is the command to gain shell, but you can also use `bash` or `zsh` depending on the completness of the container
 * with this one can move around inside the container and even start `redis-cli`, if the process is not stopped from `strg-c` use `strg-d` to send end shell command and come back to hostsystem
+* `docker run -it busybox sh` // one could also start the `run` with a `sh` but it would prevent other logs or infos propagating topwards
+* so it is more common to `docker run` the desired container and open another shell to `docker exec -it` on it, like shown above
 
 
 
