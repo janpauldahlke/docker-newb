@@ -118,7 +118,16 @@ Step 2/4 : RUN apk add --update redis
 * for gaining an image name/tag we need to
 `docker build -t hagbard/redis:latest .`
 
+#### alternative image creation technique, but this is not super common
+* there is also the possibilty to create an image out of an existing container
+* `docker run -it alpine sh` starts and emtpy docker with an alpine image
+* inside the shell `apk add --update redis` =>  brings a running container with a modified filessystem, redis is added
+* in another terminal we now `docker ps` to know the `<containerId>`
+* `docker commit -c 'CMD ["redis-server"]'` // where `-c` allows us to run a command, which is inside `'...'` which will return another `<containerId2>` 
+* we run this now `docker run <containerId2`
 
 
 
 
+
+TODO: continue here https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/learn/lecture/11436944#overview
