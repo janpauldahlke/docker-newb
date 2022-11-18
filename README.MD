@@ -107,8 +107,14 @@ Removing intermediate container d0c925dbc152
  ---> 9696ab73986e
 Successfully built 9696ab73986e
 ```
-
-
+* on adding more build command with like `RUN` docker is so fast, because it can access a cache that holds temp build steps! quite nice
+* tl:dr cached images from build steps are >9000!
+```bash
+Step 2/4 : RUN apk add --update redis
+ ---> Using cache
+ ---> 82d8800b5796
+```
+* BUT order matters, if we move the RUN to the top, the image hash is different and we need to build from scratch
 
 
 
