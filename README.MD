@@ -65,6 +65,50 @@ sudo systemctl enable containerd.service
 * `docker run -it busybox sh` // one could also start the `run` with a `sh` but it would prevent other logs or infos propagating topwards
 * so it is more common to `docker run` the desired container and open another shell to `docker exec -it` on it, like shown above
 
+#####NOTE! BEWARE!
+ >containers do NOT share a filesystem to each other, which means that they are encapsulated by the id, if one adds a connection between containers there is no possible to access from one instance to another, even if they are based on the same image!!
+
+##### dockerfiles
+* flow will always be like this
+  1. specify a base image
+  2. run soime commands to install additional programs in the container
+  3. specify a command to run on startup container
+* to excersise we will create an image that runs redis-server
+* consider the dockerfile in `/redis-image` `cd redis-image` followed by `docker build .` where `.` is the entryoint which is clearly `Dockerfile`
+> Analogy: **writing a dockerfile is like given a brand new computer and beeing told to install some programs onto it**
+* some src about offical supported base images
+  * https://github.com/docker-library/official-images
+* each step of the Dockerfile will create itself a temporary image
+* after the step is completed, the intermediate image will be deleted
+* read this mindfully as output of our small 3step docker file
+```bash 
+docker build .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+latest: Pulling from library/alpine
+ca7dd9ec2225: Pull complete 
+Digest: sha256:b95359c2505145f16c6aa384f9cc74eeff78eb36d308ca4fd902eeeb0a0b161b
+Status: Downloaded newer image for alpine:latest
+ ---> bfe296a52501
+Step 2/3 : RUN apk add --update redis
+ ---> Running in 17fcb04d5d75
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.16/main/x86_64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.16/community/x86_64/APKINDEX.tar.gz
+(1/1) Installing redis (7.0.5-r0)
+Executing redis-7.0.5-r0.pre-install
+Executing redis-7.0.5-r0.post-install
+Executing busybox-1.35.0-r17.trigger
+OK: 9 MiB in 15 packages
+Removing intermediate container 17fcb04d5d75
+ ---> 5cd2718149c4
+Step 3/3 : CMD ["redis-server"]
+ ---> Running in d0c925dbc152
+Removing intermediate container d0c925dbc152
+ ---> 9696ab73986e
+Successfully built 9696ab73986e
+```
+
+
 
 
 
