@@ -127,7 +127,11 @@ Step 2/4 : RUN apk add --update redis
 * we run this now `docker run <containerId2`
 
 
+### Simple-Webapp Example 
+> note this error: [idealTreeAlreadyExists](https://stackoverflow.com/questions/57534295/npm-err-tracker-idealtree-already-exists-while-creating-the-docker-image-for)
 
+* we need to 
+* `WORKDIR /usr/app` and copy them into the container
+* `COPY ./ /usr/app/`
 
-
-TODO: continue here https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/learn/lecture/11436944#overview
+* now we are mapping container ports
