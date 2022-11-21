@@ -158,4 +158,22 @@ Step 4/6 : RUN npm install
  ---> 7a03967d8363
  ```
 
+### docker-compose
+#### networking between containers
+* we have 2 options here
+  1. docker CLI use (issue here is one needs to do it every time!!, which we dont want)
+  2.  docker-compose as tool (which we needed to install on fedora37 just now) -> introducing **docker-compose.yml**
+* by building via docker compose docker will allow connection in between this containers, so they can exchange data
+* inside the `index.js` for the redis client, we can specify `host: redis-server` which is given by the naming in the `docker-compose.yml`
+* consider
+```bash
+docker-compose up --build
+Creating network "visitor-counter_default" with the default driver
+```
+
+##### translation between normal docker and docker-compose commands
+* `docker run myImage` -> `docker-compose up`
+* `docker build .` && `docker run myImage` -> `docker-compose up --build`
+
+
 

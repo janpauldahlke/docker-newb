@@ -1,0 +1,12 @@
+# just by creating this very file, docker will internally allow access/network them!!
+# magic
+version: '3'
+services: 
+  redis-server:
+    #image from docker hub
+    image: 'redis'
+  node-app:
+    # but here image is our local DockerFile
+    build: .
+    ports: 
+    - "4000:8080"
