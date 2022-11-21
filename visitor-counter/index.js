@@ -23,7 +23,10 @@ app.get('/', (req, res) => {
 // route for the server to die
 app.get('/end', (req, res) => {
   //end process forcefully
-  process.exit(0);
+  // but with 0!!! this will have impact on
+  // docker-compose.yml ` restart : on-failure`
+  //process.exit(0);
+  process.exit(1);
 });
 
 

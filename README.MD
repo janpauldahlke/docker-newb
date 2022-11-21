@@ -182,9 +182,9 @@ Creating network "visitor-counter_default" with the default driver
 * we can check on correctnes by `docker ps` only redis should run now, visitors is exited(0)
 * note on nodejs Status Codes `0->everything is ok` BUT `1,2,3..etc -> Exit because something went wrong` keep this in mind, when writing your automatic container restarts
 * docker-compose offers `restart policies` with 4 states 
-  1. `no` - never restart
+  1. `"no"` - never restart (no-te the quotes) because yml will read `no` as `false` , curios and funny
   2. `always` -> container stopped for any reason, restart it
   3. `on-failure` -> only restarts if the container stops with an error code
   4. `unless-stopped` -> like `always` unless we DEVELOPERS forcibly stopped it
 
-
+* `docker ps` -> `docker-compose ps` to inspect running containers, inside the /dir we are in, when there is also a `docker-compose.yml` given in that root
