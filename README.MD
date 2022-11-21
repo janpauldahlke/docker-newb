@@ -130,8 +130,13 @@ Step 2/4 : RUN apk add --update redis
 ### Simple-Webapp Example 
 > note this error: [idealTreeAlreadyExists](https://stackoverflow.com/questions/57534295/npm-err-tracker-idealtree-already-exists-while-creating-the-docker-image-for)
 
-* we need to 
-* `WORKDIR /usr/app` and copy them into the container
-* `COPY ./ /usr/app/`
+* we need to:
+ > left is entry point seen from `dockerfile build .`
+ > right is target inside container filesystem
+* `WORKDIR /usr/app` specifiy a workdir inside the container
+* `COPY ./ /usr/app/`  and copy them into the container
 
 * now we are mapping container ports
+* where left 8080 means, all coming from this localnetwork port are redirected to other port insided the container, consider `-p 8080:1337` would need the express to expose on `:1337`
+`docker run -p 8080:8080 hagbardc3line/simple-webapp`
+* after the build we could also verify about the correctness of our WORKDIR with this `docker run -it hagbardc3line/simple-webapp sh` which should be the same as `WORKDIR /usr/simple-webapp`
