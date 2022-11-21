@@ -7,10 +7,11 @@ FROM node:alpine
 WORKDIR /usr/simple-webapp
 
 # copy assets to container
-COPY ./ /usr/simple-webapp/
-
+COPY ./package.json /usr/simple-webapp/
 # install depts
 RUN npm install
+# now copy all of the rest, to avoid another npm run install
+COPY ./ ./usr/simple-webapp
 
 # Default command
 CMD ["npm", "start"]

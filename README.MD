@@ -140,3 +140,22 @@ Step 2/4 : RUN apk add --update redis
 * where left 8080 means, all coming from this localnetwork port are redirected to other port insided the container, consider `-p 8080:1337` would need the express to expose on `:1337`
 `docker run -p 8080:8080 hagbardc3line/simple-webapp`
 * after the build we could also verify about the correctness of our WORKDIR with this `docker run -it hagbardc3line/simple-webapp sh` which should be the same as `WORKDIR /usr/simple-webapp`
+
+* on rebuilding, because changing the js in `index.js` docker detects a change and then also wants to redo `npm install`, how could we prevent this?
+* we wil split the `COPY` step 
+```bash
+# copy assets to container
+COPY ./package.json /usr/simple-webapp/
+# install depts
+RUN npm install
+# now copy all of the rest, to avoid another npm run install
+COPY ./ ./usr/simple-webapp
+```
+* and gained build cache
+```bash
+Step 4/6 : RUN npm install
+ ---> Using cache
+ ---> 7a03967d8363
+ ```
+
+
