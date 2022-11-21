@@ -1,5 +1,6 @@
 const express = require('express');
 const redis = require('redis');
+const process = require('process');
 const _VISITS =  'visits'
 
 const app = express();
@@ -18,6 +19,13 @@ app.get('/', (req, res) => {
     client.set(_VISITS, parseInt(visits) + 1);
   })
 });
+
+// route for the server to die
+app.get('/end', (req, res) => {
+  //end process forcefully
+  process.exit(0);
+});
+
 
 app.listen(8080, () => {
   console.log('Listening on Port :8080')

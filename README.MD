@@ -174,6 +174,17 @@ Creating network "visitor-counter_default" with the default driver
 ##### translation between normal docker and docker-compose commands
 * `docker run myImage` -> `docker-compose up`
 * `docker build .` && `docker run myImage` -> `docker-compose up --build`
+* `docker run id` -> `docker-compose up -d` runs containers in the background
+* `docker stop id` would be unhandy fopr each single image -> `docker compose down`
 
+##### how to handle crashed containers?
+* we modify our vistors `index.js` by adding a second route, which will end the servers runtime
+* we can check on correctnes by `docker ps` only redis should run now, visitors is exited(0)
+* note on nodejs Status Codes `0->everything is ok` BUT `1,2,3..etc -> Exit because something went wrong` keep this in mind, when writing your automatic container restarts
+* docker-compose offers `restart policies` with 4 states 
+  1. `no` - never restart
+  2. `always` -> container stopped for any reason, restart it
+  3. `on-failure` -> only restarts if the container stops with an error code
+  4. `unless-stopped` -> like `always` unless we DEVELOPERS forcibly stopped it
 
 
